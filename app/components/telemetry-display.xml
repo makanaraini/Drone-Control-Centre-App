@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GridLayout xmlns="http://schemas.nativescript.org/tns.xsd" rows="auto, auto, auto" columns="*, *" class="p-4 bg-gray-100 rounded-lg m-2">
+    <Label text="Altitude" row="0" col="0" class="text-gray-600"/>
+    <Label text="{{ telemetry.altitude }}m" row="0" col="1" class="text-right font-bold"/>
+    
+    <Label text="Battery" row="1" col="0" class="text-gray-600"/>
+    <Label text="{{ telemetry.battery }}%" row="1" col="1" class="text-right font-bold"/>
+    
+    <Label text="Solar Input" row="2" col="0" class="text-gray-600"/>
+    <Label text="{{ telemetry.solarInput }}W" row="2" col="1" class="text-right font-bold"/>
+</GridLayout>
