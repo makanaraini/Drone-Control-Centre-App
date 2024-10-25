@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="bg-gray-50">
+    <ActionBar title="Drone Control Center" class="bg-blue-600 text-white"/>
+    
+    <ScrollView>
+        <StackLayout class="p-4">
+            <!-- Status Bar -->
+            <GridLayout rows="auto" columns="*" class="bg-white rounded-lg p-4 mb-4 shadow">
+                <Label text="{{ droneState.isConnected ? '🟢 Connected' : '🔴 Disconnected' }}" 
+                       class="{{ droneState.isConnected ? 'text-green-600' : 'text-red-600' }} text-lg font-bold text-center"/>
+            </GridLayout>
+
+            <!-- Telemetry Section -->
+            <Label text="Telemetry Data" class="text-xl font-bold mb-2"/>
+            <GridLayout rows="auto, auto, auto" columns="*, *" class="bg-white rounded-lg p-4 mb-4 shadow">
+                <Label text="Altitude" row="0" col="0" class="text-gray-600 p-2"/>
+                <Label text="{{ telemetry.altitude + ' m' }}" row="0" col="1" class="text-right font-bold p-2"/>
+                
+                <Label text="Battery" row="1" col="0" class="text-gray-600 p-2"/>
+                <Label text="{{ telemetry.battery + '%' }}" row="1" col="1" class="text-right font-bold p-2"/>
+                
+                <Label text="Solar Input" row="2" col="0" class="text-gray-600 p-2"/>
+                <Label text="{{ telemetry.solarInput + ' W' }}" row="2" col="1" class="text-right font-bold p-2"/>
+            </GridLayout>
+
+            <!-- Control Panel Section -->
+            <Label text="Control Panel" class="text-xl font-bold mb-2"/>
+            <GridLayout rows="auto" columns="*, *, *" class="bg-white rounded-lg p-4 shadow gap-2">
+                <Button text="TAKEOFF" 
+                        tap="{{ onTakeoff }}" 
+                        isEnabled="{{ droneState.isConnected && !droneState.isFlying }}"
+                        class="{{ droneState.isConnected && !droneState.isFlying ? 'bg-blue-500' : 'bg-gray-300' }} text-white p-4 rounded-lg" 
+                        col="0"/>
+                
+                <Button text="HOVER" 
+                        tap="{{ onHover }}" 
+                        isEnabled="{{ droneState.isConnected && droneState.isFlying }}"
+                        class="{{ droneState.isHovering ? 'bg-yellow-500' : (droneState.isConnected && droneState.isFlying ? 'bg-blue-500' : 'bg-gray-300') }} text-white p-4 rounded-lg" 
+                        col="1"/>
+                
+                <Button text="LAND" 
+                        tap="{{ onLand }}" 
+                        isEnabled="{{ droneState.isConnected && droneState.isFlying }}"
+                        class="{{ droneState.isConnected && droneState.isFlying ? 'bg-red-500' : 'bg-gray-300' }} text-white p-4 rounded-lg" 
+                        col="2"/>
+            </GridLayout>
+
+            <!-- Flight Status -->
+            <StackLayout class="mt-4 p-4 bg-white rounded-lg shadow">
+                <Label text="Flight Status" class="text-lg font-bold mb-2"/>
+                <Label text="{{ droneState.isFlying ? (droneState.isHovering ? '🛸 Hovering' : '✈️ Flying') : '🛑 Grounded' }}" 
+                       class="text-center text-lg"/>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</Page>
