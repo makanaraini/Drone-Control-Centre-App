@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StackLayout xmlns="http://schemas.nativescript.org/tns.xsd" class="p-4">
+    <Label text="{{ droneState.isConnected ? 'Connected' : 'Disconnected' }}" 
+           class="{{ droneState.isConnected ? 'text-green-500' : 'text-red-500' }} text-center mb-4"/>
+    
+    <GridLayout rows="auto" columns="*, *, *" class="gap-2">
+        <Button text="Takeoff" 
+                tap="{{ onTakeoff }}" 
+                isEnabled="{{ droneState.isConnected && !droneState.isFlying }}"
+                class="bg-blue-500 text-white p-4" 
+                col="0"/>
+        
+        <Button text="Hover" 
+                tap="{{ onHover }}" 
+                isEnabled="{{ droneState.isConnected && droneState.isFlying }}"
+                class="{{ droneState.isHovering ? 'bg-yellow-500' : 'bg-blue-500' }} text-white p-4" 
+                col="1"/>
+        
+        <Button text="Land" 
+                tap="{{ onLand }}" 
+                isEnabled="{{ droneState.isConnected && droneState.isFlying }}"
+                class="bg-red-500 text-white p-4" 
+                col="2"/>
+    </GridLayout>
+</StackLayout>
